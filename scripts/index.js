@@ -1,35 +1,30 @@
-// @todo: Темплейт карточки
-const listElementTemplate = document.querySelector('#card-template').content;
+const cardTemplate = document.querySelector('#card-template').content;
+const cardList = document.querySelector('.places__list');
 
-// @todo: DOM узлы
-const list = document.querySelector('places__list');
+function createCard(title, image, callback) {
+  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
 
-// @todo: Функция создания карточки
+  cardElement.querySelector('.card__title').textContent = title;
+  const cardImage = cardElement.querySelector('.card__image');
+  cardImage.alt = title;
+  cardImage.src = image;
 
-function createCard(item) { 
-  let listItem = document.querySelector('.places__item card');
-  let listItemImage = document.querySelector('.card__image');
-  let listItemTitle = document.querySelector('.card__title');
-  let listItemBasket = document.querySelector('.card__delete-button');
-  let listItemLike = document.querySelector('.card__like-button');
-  
-  listItemImage.src = item.link;
-  listItemTitle.textContent = item.name;
-  listItemImage.alt = item.name;
- 
-  
-  let listItemBasketList = listItemBasket.closest('.places__item card');
-  listItemBasket.addEventListener('click', (evt) => {listItemBasketList.remove()});
-  listItemLike.addEventListener('click', (evt) => {evt.target.classList.toggle('card__like-button_is-active')});
+  const deleteButton = cardElement.querySelector('.card__delete-button');
+  deleteButton.addEventListener('click', callback);
 
-  return listItem;
- 
-  }; 
-// @todo: Функция удаления карточки
+  return cardElement;
+}
 
-// @todo: Вывести карточки на страницу
+function deleteCard(event) {
+  const cardListItem = event.target.closest('.card');
+  cardListItem.remove();
+}
 
-initialCards.forEach(item => { 
-    createCard(item);
-    list.prepend(listItem); 
-});
+function addCard(item) {
+  cardList.append(item);
+}
+
+initialCards.forEach((item) => {
+  const cardData = createCard(item.name, item.link, deleteCard);
+  addCard(cardData);
+})
