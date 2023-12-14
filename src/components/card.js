@@ -1,5 +1,11 @@
+import {openPopup} from './modal';
+
 const cardTemplate = document.querySelector('#card-template').content;
 const cardsContainer = document.querySelector('.places__list');
+
+const popupImgPic = document.querySelector('.popup__image');
+const popupImgText = document.querySelector('.popup__caption');
+const imageModal = document.querySelector('.popup_type_image');
 
 function createCard(cardData, onDelete) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);

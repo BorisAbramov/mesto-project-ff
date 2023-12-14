@@ -39,8 +39,7 @@ const popupAdd = document.querySelector('.popup-add');
 const formElementAdd = document.querySelector('#popup-add__form'); 
 const showImageAdd = document.querySelector('.profile__add'); 
 
-const popupImgPic = document.querySelector('.popup__image');
-const popupImgText = document.querySelector('.popup__caption'); 
+
 
 
 initialCards.forEach((item) => {
