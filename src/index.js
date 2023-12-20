@@ -1,6 +1,6 @@
 import './pages/index.css';
 import {initialCards} from './components/cards';
-import {openPopup, closeModal, handleEsc, imgClickHandler} from './components/modal';
+import {openPopup, closeModal} from './components/modal';
 import {createCard, deleteCard, addCard} from './components/card';
 
 const showEditProfile = document.querySelector('.profile__edit-button');

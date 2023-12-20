@@ -1,7 +1,4 @@
 //modals 
-const editModal = document.querySelector('.popup_type_edit'); 
-const addCardModal = document.querySelector('.popup_type_new-card');
-const imageModal = document.querySelector('.popup_type_image');
 
 function openPopup(modal) { 
     modal.classList.add('popup_is-opened'); 
@@ -21,10 +18,4 @@ function handleEsc (event){
   } 
 }
 
-const imgClickHandler = (evt) => {
-    popupImgPic.src = cardData.link;
-    popupImgText.textContent = cardData.name;
-    openPopup(imageModal) 
-  }
-
-export {openPopup, closeModal, handleEsc, imgClickHandler};
+export {openPopup, closeModal};
