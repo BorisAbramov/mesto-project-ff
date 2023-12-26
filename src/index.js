@@ -39,7 +39,9 @@ const popupAdd = document.querySelector('.popup-add');
 const formElementAdd = document.querySelector('#popup-add__form'); 
 const showImageAdd = document.querySelector('.profile__add'); 
 
-
+//input
+const name = document.querySelector('#formAddInputName').value; 
+const link = document.querySelector('#formAddInputLink').value; 
 
 
 initialCards.forEach((item) => {
@@ -63,34 +65,45 @@ formElement.addEventListener('submit', function(evt) {
 formElementAdd.addEventListener('submit', function(ev) { 
   ev.preventDefault(); 
   closeModal(addCardModal); 
-  const name = ev.target.querySelector('#formAddInputName').value; 
-  const link = ev.target.querySelector('#formAddInputLink').value; 
+  // const name = ev.target.querySelector('#formAddInputName').value; 
+  // const link = ev.target.querySelector('#formAddInputLink').value; 
   const cardData = createCard({name, link}, deleteCard); 
   addCard(cardData);
   formElementAdd.reset(); 
 });
 
 //---------------------------------- 
-popupEdit.addEventListener('click', function(evt){ 
-  if (evt.target.classList.contains('popup_type_edit') || evt.target.classList.contains('popup__close')){ 
-    const popupOpened = document.querySelector('.popup_is-opened'); 
-    closeModal(popupOpened); 
-  } 
-}) 
+// popupEdit.addEventListener('click', function(evt){ 
+//   if (evt.target.classList.contains('popup_type_edit') || evt.target.classList.contains('popup__close')){ 
+//     const popupOpened = document.querySelector('.popup_is-opened'); 
+//     closeModal(popupOpened); 
+//   } 
+// }) 
 
-popupAddCard.addEventListener('click', function(evt){ 
-  if (evt.target.classList.contains('popup_type_add-card') || evt.target.classList.contains('popup__close')){ 
-    const popupOpened = document.querySelector('.popup_is-opened'); 
-    closeModal(popupOpened); 
-  }
-}) 
+// popupAddCard.addEventListener('click', function(evt){ 
+//   if (evt.target.classList.contains('popup_type_add-card') || evt.target.classList.contains('popup__close')){ 
+//     const popupOpened = document.querySelector('.popup_is-opened'); 
+//     closeModal(popupOpened); 
+//   }
+// }) 
 
-popupImage.addEventListener('click', function(evt){ 
-  if (evt.target.classList.contains('popup_type_image') || evt.target.classList.contains('popup__close')){ 
-    const popupOpened = document.querySelector('.popup_is-opened'); 
-    closeModal(popupOpened); 
-  }
-}) 
+// popupImage.addEventListener('click', function(evt){ 
+//   if (evt.target.classList.contains('popup_type_image') || evt.target.classList.contains('popup__close')){ 
+//     const popupOpened = document.querySelector('.popup_is-opened'); 
+//     closeModal(popupOpened); 
+//   }
+// }) 
+
+const popupList = Array.from(document.querySelectorAll('.popup')); // найдем все попапы на странице
+
+popupList.forEach((popup) => { // итерируем массив. объявляя каждый попап в переменную popup
+  popup.addEventListener('mouseup', (event) => { // на каждый попап устанавливаем слушателя события
+    const targetClassList = event.target.classList; // запишем в переменную класс элемента, на котором произошло событие
+    if (targetClassList.contains('popup') || targetClassList.contains('popup__close')) { // проверяем наличие класса попапа ИЛИ кнопки закрытия
+      closeModal(popup); // если один из классов присутствует, то закрываем попап
+    }
+  })
+})
 
 //----открытие редактирования профиля 
 openEditModalButton.addEventListener('click', () => { 
