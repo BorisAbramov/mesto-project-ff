@@ -15,6 +15,10 @@ function createCard(item, userId, displayImageFunction, setAndDeleteLikeFunction
 
   if(item.owner._id !== userId) {
     deleteButton.remove();
+  } else {
+    deleteButton.addEventListener('click', function() {
+      deleteCardFunction(cardElement, item);
+  })
   }
   
   if(item.likes.some((item) => item._id === userId)) {
@@ -25,9 +29,9 @@ function createCard(item, userId, displayImageFunction, setAndDeleteLikeFunction
     displayImageFunction(item.name, item.link);
   });
 
-  deleteButton.addEventListener('click', function() {
-    deleteCardFunction(cardElement, item);
-})
+//   deleteButton.addEventListener('click', function() {
+//     deleteCardFunction(cardElement, item);
+// })
 
   likeCardButton.addEventListener('click', (e) => {
     setAndDeleteLikeFunction(e, item, likeCardButton, numberOfLikesElement);

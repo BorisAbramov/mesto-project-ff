@@ -20,9 +20,7 @@ const getUserData = () => {
     return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headersShort
 })
-    .then((res) => {
-        return getResponseData(res);
-    })
+    .then(getResponseData);
 }
 
 const getInitialCards = () => {

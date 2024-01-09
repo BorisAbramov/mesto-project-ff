@@ -35,8 +35,16 @@ const formElementEditAvatar = popupTypeEditAvatar.querySelector('.popup__form');
 const inputAvatar = popupTypeEditAvatar.querySelector('.popup__input');
 let cardToDelete;
 let cardIdToDelete;
+const enableValidationValue = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_disabled',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__error_visible'
+}
 
-function setDefaultInputs() {
+function fillPopupProfileInputs() {
     titleInput.value = profileTitle.textContent;
     jobInput.value = profileJob.textContent;
 }
@@ -48,40 +56,20 @@ function displayClickedImage(name, url) {
     openModal(popupTypeImage);
   }
 
-enableValidation({
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_disabled',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__error_visible'
-  });
+enableValidation(enableValidationValue);
 
 buttonEditProfile.addEventListener('click', function() {
     openModal(popupTypeEdit);
-    clearValidation(formElementEditProfile, {
-        formSelector: '.popup__form',
-        inputSelector: '.popup__input',
-        submitButtonSelector: '.popup__button',
-        inactiveButtonClass: 'popup__button_disabled',
-        inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__error_visible'
-      });
-    setDefaultInputs();
+    clearValidation(formElementEditProfile, enableValidationValue);
+      fillPopupProfileInputs();
 });
 
 buttonAddCard.addEventListener('click', function() {
     openModal(popupTypeAdd);
-    clearValidation(formElementAddCard, {
-        formSelector: '.popup__form',
-        inputSelector: '.popup__input',
-        submitButtonSelector: '.popup__button',
-        inactiveButtonClass: 'popup__button_disabled',
-        inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__error_visible'
-      });
-    cardNameInput.value = '';
-    urlInput.value = '';
+    clearValidation(formElementAddCard, enableValidationValue);
+    // cardNameInput.value = '';
+    // urlInput.value = '';
+    formElementAddCard.reset();
 });
 
 const deleteCardFunction = (cardElement, item) => {
@@ -91,23 +79,31 @@ const deleteCardFunction = (cardElement, item) => {
   }
 
 const setAndDeleteLike = (e, item, likeCardButton, numberOfLikesElement) => {
-if(e.target.classList.contains('card__like-button_is-active')) {
-    setDislike(item)
-    .then((res) => {
-        toggleLike(likeCardButton, numberOfLikesElement, res.likes.length);
-    })
-    .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ' + err);
-    });
-    } else {
-    setLike(item)
-    .then((res) => {
-        toggleLike(likeCardButton, numberOfLikesElement, res.likes.length);
-    })
-    .catch((err) => {
-        console.log('Ошибка. Запрос не выполнен: ' + err);
-    });
-    }
+// if(e.target.classList.contains('card__like-button_is-active')) {
+//     setDislike(item)
+//     .then((res) => {
+//         toggleLike(likeCardButton, numberOfLikesElement, res.likes.length);
+//     })
+//     .catch((err) => {
+//         console.log('Ошибка. Запрос не выполнен: ' + err);
+//     });
+//     } else {
+//     setLike(item)
+//     .then((res) => {
+//         toggleLike(likeCardButton, numberOfLikesElement, res.likes.length);
+//     })
+//     .catch((err) => {
+//         console.log('Ошибка. Запрос не выполнен: ' + err);
+//     });
+//     }
+   const likeMethod = e.target.classList.contains('card__like-button_is-active') ? setDislike : setLike;
+   likeMethod(item) 
+       .then((res) => { 
+           toggleLike(likeCardButton, numberOfLikesElement, res.likes.length); 
+       }) 
+       .catch((err) => { 
+           console.log('Ошибка. Запрос не выполнен: ' + err); 
+       });
 }
 
 buttonPopupDeleteCard.addEventListener('click', function() {
@@ -185,14 +181,7 @@ document.forms.newPlace.addEventListener('submit', function (event) {
 
 buttonEditAvatar.addEventListener('click', function() {
     openModal(popupTypeEditAvatar);
-    clearValidation(formElementEditAvatar, {
-        formSelector: '.popup__form',
-        inputSelector: '.popup__input',
-        submitButtonSelector: '.popup__button',
-        inactiveButtonClass: 'popup__button_disabled',
-        inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__error_visible'
-      });
+    clearValidation(formElementEditAvatar, enableValidationValue);
     inputAvatar.value = '';
 })
 

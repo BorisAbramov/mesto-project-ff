@@ -13,8 +13,7 @@ function closeByEsc(e) {
 }
 
 function closeByClick(e) {
-  const closeButton = e.currentTarget.querySelector('.popup__close');
-  if(e.target === e.currentTarget || e.target === closeButton) {
+  if(e.target === e.currentTarget || e.target.classList.contains('popup__close')) {
       closeModal(e.currentTarget);
   }
 }
