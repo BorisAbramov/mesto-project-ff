@@ -1,21 +1,28 @@
-//modals 
+function openModal(popup) {
+  popup.classList.add('popup_is-animated');
+  popup.classList.add('popup_is-opened');
+  popup.addEventListener('click', closeByClick);
+  document.addEventListener('keydown', closeByEsc);
+}
 
-function openPopup(modal) { 
-    modal.classList.add('popup_is-opened'); 
-    document.addEventListener('keyup', handleEsc); 
-  } 
-
-//------------------------ 
-function closeModal(popup) { 
-    popup.classList.remove('popup_is-opened'); 
-    document.removeEventListener('keyup', handleEsc); 
-  } 
-
-function handleEsc (event){ 
-  if (event.key === 'Escape'){ 
-    const activePopup = document.querySelector('.popup_is-opened'); 
-    closeModal(activePopup); 
+function closeByEsc(e) {
+  if(e.key === 'Escape') {
+      const popup = document.querySelector('.popup_is-opened');
+      closeModal(popup);
   } 
 }
 
-export {openPopup, closeModal};
+function closeByClick(e) {
+  const closeButton = e.currentTarget.querySelector('.popup__close');
+  if(e.target === e.currentTarget || e.target === closeButton) {
+      closeModal(e.currentTarget);
+  }
+}
+
+function closeModal(popup) {
+  popup.classList.remove('popup_is-opened');
+  popup.removeEventListener('click', closeByClick);
+  document.removeEventListener('keydown', closeByEsc);
+}
+
+export { openModal, closeModal }; 
